@@ -6,9 +6,12 @@ const mid = require('../middleware/middlewareRotes.js');
 const User = require('../models/user.js');
 const Contact = require('../models/contact.js');
 
+
+
+// Se logado envia todos os contatos para o usuario
+//Se desologado envia mensagem de boas vindas
 router.get('/', function (req, res, next) {
 	if( req.session.userId){
-		// Envia todos os contatos do usuário
 		User.findById(req.session.userId)
 			.exec( function (err, userData) {
 				if(err){
@@ -32,7 +35,6 @@ router.get('/', function (req, res, next) {
 				}
 			});
 	} else {
-		// Menssagem de boas vindas
 		res.json({
 			message: 'Bem vindo a API de contatinhos'
 		});
@@ -64,7 +66,8 @@ router.post('/join', mid.verifyParamsJoin, function (req, res, next) {
 });
 
 
-
+//verifica se foi enviado o email e login
+//Verifica se a senha confere
 router.post('/singin', mid.verifyParamsLogin, function (req, res, next) {
 	User.authenticate(req.body.email, req.body.password, function (err, user) {
 		if( err || !user){
@@ -78,6 +81,9 @@ router.post('/singin', mid.verifyParamsLogin, function (req, res, next) {
 	});
 });
 
+
+
+//TODO: logout
 router.post('/logout', function (req, res, next) {
 	res.json({
 		message: "/logout"

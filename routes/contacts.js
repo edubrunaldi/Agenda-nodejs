@@ -32,8 +32,12 @@ router.post('/new', mid.verifyParamsNewContact, function (req, res, next) {
 	//console.log(req.session.userId);
 } );
 
+
+//TODO: Atualizar contato
 router.put('update', );
 
+
+//TODO: remover contato
 router.delete('remove', );
 
 module.exports = router;

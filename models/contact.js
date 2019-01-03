@@ -24,8 +24,6 @@ const ContactSchema = Schema({
 
 });
 
-//TODO: create pre-save for do something
-
 
 const Contact =  mongoose.model('Contact', ContactSchema);
 
