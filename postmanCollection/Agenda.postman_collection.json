@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "790422d0-84c2-4688-9456-f6cbcdcbd7cb",
+		"name": "Agenda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:3000/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				},
+				"description": "Pagina inicial, contendo login e cadastro. Ou caso logado para mostra(retorna) os contatos do usuário"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/join",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"meu@email.com\",\n\t\"password\": \"qwe123\",\n\t\"confirmPassword\": \"qwe123\",\n\t\"name\": \"Eduardo Santos\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/join",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"join"
+					]
+				},
+				"description": "Cadastra um usuário"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/singin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"meu@email.com\",\n\t\"password\": \"qwe123\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/singin",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"singin"
+					]
+				},
+				"description": "Usuário faz login"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"logout"
+					]
+				},
+				"description": "Remove a sessao de login do usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/contacts/new",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"evandro\",\n\t\"phone\": \"16 997704501\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/contacts/new",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contacts",
+						"new"
+					]
+				},
+				"description": "Adiciona um novo contato"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/contacts/update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/contacts/update",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contacts",
+						"update"
+					]
+				},
+				"description": "atualiza um contato"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/contacts/remove",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/contacts/remove",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contacts",
+						"remove"
+					]
+				},
+				"description": "remove um contato"
+			},
+			"response": []
+		}
+	]
+}
