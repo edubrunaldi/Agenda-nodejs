@@ -35,6 +35,30 @@ function verifyParamsNewContact(req, res, next) {
 }
 
 
+function verifyParamsUpdate(req, res, next) {
+	if(req.body.contactId){
+		return next();
+	} else {
+		let err = new Error("missing field");
+		err.status = 400;
+		next(err);
+	}
+}
+
+
+function verifyParamsRemove(req, res, next) {
+	if(req.body.contactId){
+		return next();
+	} else {
+		let err = new Error("missing field");
+		err.status = 400;
+		next(err);
+	}
+}
+
+
 module.exports.verifyParamsJoin = verifyParamsJoin;
 module.exports.verifyParamsLogin = verifyParamsLogin;
 module.exports.verifyParamsNewContact = verifyParamsNewContact;
+module.exports.verifyParamsUpdate = verifyParamsUpdate;
+module.exports.verifyParamsRemove = verifyParamsRemove;

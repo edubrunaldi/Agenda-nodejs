@@ -22,7 +22,7 @@ router.get('/', function (req, res, next) {
 				if(userData.contacts.length > 0){
 					let arrayContacts = userData.contacts.map(function (contact) {
 						return new Promise( function (resolve) {
-							Contact.findById(contact.idContact,"-_id -__v", function (err, contact) {
+							Contact.findById(contact.idContact,"-__v", function (err, contact) {
 								if(err) return next(err);
 								resolve(contact);
 							});
@@ -86,11 +86,16 @@ router.post('/singin', mid.verifyParamsLogin, function (req, res, next) {
 
 
 
-//TODO: logout
 router.post('/logout', function (req, res, next) {
-	res.json({
-		message: "/logout"
-	});
+	if(req.session){
+		req.session.destroy( function (err) {
+			if(err){
+				return next(err);
+			} else {
+				return res.redirect('/');
+			}
+		});
+	}
 });
 
 module.exports = router;

@@ -21,7 +21,6 @@ router.post('/new', mid.verifyParamsNewContact, function (req, res, next) {
 			return next(err);
 		} else {
 			if(req.session.userId){
-														/*{ contacts: [{idContact: contact._id}]}*/
 				User.update( { _id:req.session.userId }, { $push: {contacts: {idContact: idContact}} }, function (err, user) {
 					res.json("contact add with success");
 					res.status(201);
@@ -32,14 +31,35 @@ router.post('/new', mid.verifyParamsNewContact, function (req, res, next) {
 			}
 		}
 	});
+});
+
+
+router.put('/update', mid.verifyParamsUpdate, function (req, res, next) {
+	contactData = {
+	};
+
+	if(req.body.email) contactData.email = req.body.email;
+	if(req.body.phone) contactData.phone = req.body.phone;
+	if(req.body.name) contactData.name = req.body.name;
+	console.log(contactData);
+	Contact.findByIdAndUpdate(req.body.contactId, contactData, {new: true}, function (err, contact) {
+		if(err) return next(err);
+		res.json(contact);
+	});
+});
+
+
+router.delete('/remove', mid.verifyParamsRemove, function(req, res, next) {
+	Contact.findOneAndDelete(req.body.contactId, function (err, contact) {
+		if(err) next(err);
+
+		User.findOneAndUpdate(req.session.userId, {$pull: {contacts: {idContact: req.body.contactId}} }, function(err, user){
+			if(err) next(err);
+
+			res.json(contact);
+		});
+		
+	});
 } );
-
-
-//TODO: Atualizar contato
-router.put('update', );
-
-
-//TODO: remover contato
-router.delete('remove', );
 
 module.exports = router;
