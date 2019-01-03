@@ -5,6 +5,8 @@ const router = express.Router();
 const mid = require('../middleware/middlewareRotes.js');
 const User = require('../models/user.js');
 const Contact = require('../models/contact.js');
+const Promise = require("bluebird");
+
 
 
 
@@ -14,20 +16,22 @@ router.get('/', function (req, res, next) {
 	if( req.session.userId){
 		User.findById(req.session.userId)
 			.exec( function (err, userData) {
-				let arrayContacts = [];
 				if(err){
 					return next(err);
 				}
 				if(userData.contacts.length > 0){
-					userData.contacts.forEach( function (json) {
-					 	Contact.findById(json.idContact, "-_id").
-					 		exec(function (err, contact) {
-					 			if(err) return next(err);
-					 			console.log(contact);
-					 			arrayContacts.push(contact);
-					 		});
-					 });
-					res.json(arrayContacts);
+					let arrayContacts = userData.contacts.map(function (contact) {
+						return new Promise( function (resolve) {
+							Contact.findById(contact.idContact,"-_id -__v", function (err, contact) {
+								if(err) return next(err);
+								resolve(contact);
+							});
+						});
+					});
+
+					Promise.all(arrayContacts).then( function(result) {
+						res.json(result);
+					})
 
 				} else {
 					res.json({ message: "No contact found"});

@@ -15,12 +15,14 @@ router.post('/new', mid.verifyParamsNewContact, function (req, res, next) {
 	}
 	Contact.create(contactData, function(err, contact){
 		console.log(contact);
+		idContact = contact._id;
+		console.log(idContact);
 		if(err){
 			return next(err);
 		} else {
 			if(req.session.userId){
 														/*{ contacts: [{idContact: contact._id}]}*/
-				User.update( { _id:req.session.userId }, { $push: {contacts: contact._id} }, function (err, user) {
+				User.update( { _id:req.session.userId }, { $push: {contacts: {idContact: idContact}} }, function (err, user) {
 					res.json("contact add with success");
 					res.status(201);
 				});
