@@ -14,7 +14,9 @@ const db = mongoose.connection;
 mongoose.connect('mongodb://localhost:27017/agenda', {useNewUrlParser: true});
 
 //@TODO: mudar para enviar por json
-db.on('error', console.error.bind(console, 'connection error: '));
+db.on('error', function (err) {
+	console.error("connection error: ", err);
+});
 
 db.once('open', function () {
 	console.log("db connected!");
@@ -62,4 +64,5 @@ app.use( (error, req, res, next) =>{
 
 app.listen(3000, () =>{
 	console.log('Express app listening on port 3000');
-})
+});
+

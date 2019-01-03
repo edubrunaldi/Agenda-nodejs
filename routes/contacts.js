@@ -19,7 +19,8 @@ router.post('/new', mid.verifyParamsNewContact, function (req, res, next) {
 			return next(err);
 		} else {
 			if(req.session.userId){
-				User.update( { _id:req.session.userId }, { contacts: [{idContact: contact._id}]}, function (err, user) {
+														/*{ contacts: [{idContact: contact._id}]}*/
+				User.update( { _id:req.session.userId }, { $push: {contacts: contact._id} }, function (err, user) {
 					res.json("contact add with success");
 					res.status(201);
 				});
@@ -29,7 +30,6 @@ router.post('/new', mid.verifyParamsNewContact, function (req, res, next) {
 			}
 		}
 	});
-	//console.log(req.session.userId);
 } );
 
 

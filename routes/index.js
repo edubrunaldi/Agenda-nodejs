@@ -14,21 +14,20 @@ router.get('/', function (req, res, next) {
 	if( req.session.userId){
 		User.findById(req.session.userId)
 			.exec( function (err, userData) {
+				let arrayContacts = [];
 				if(err){
 					return next(err);
 				}
-
-				arrayContacts = [];
-
 				if(userData.contacts.length > 0){
-					 userData.contacts.forEach( function (json) {
+					userData.contacts.forEach( function (json) {
 					 	Contact.findById(json.idContact, "-_id").
 					 		exec(function (err, contact) {
-					 			console.log(contact)
+					 			if(err) return next(err);
+					 			console.log(contact);
 					 			arrayContacts.push(contact);
-					 			res.json(arrayContacts);
 					 		});
 					 });
+					res.json(arrayContacts);
 
 				} else {
 					res.json({ message: "No contact found"});
